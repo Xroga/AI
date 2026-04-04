@@ -643,24 +643,24 @@
                         <span class="hidden dark:inline">Dark</span>
                     </span>
                 </button>
-                <!-- User Info & Logout -->
+            <!-- User Info & Logout -->
 <div id="user-info" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-primary-500/20 to-purple-500/20 dark:from-primary-900/30 dark:to-purple-900/30 backdrop-blur-sm mb-2">
     <div class="flex items-center gap-3">
         <div class="p-2 bg-primary-500/30 dark:bg-primary-900/30 rounded-lg">
             <i data-lucide="user" class="w-4 h-4 text-primary-600 dark:text-primary-400"></i>
         </div>
         <div>
-            <p class="font-semibold text-sm" id="sidebar-username">Guest</p>
             <p class="text-xs text-gray-600 dark:text-gray-400" id="sidebar-status">Not logged in</p>
         </div>
     </div>
     <button id="logout-btn" class="text-xs px-2 py-1 bg-white/30 dark:bg-gray-700/50 rounded-md hidden">Logout</button>
 </div>
-                <!-- Login Button in Sidebar -->
+
+<!-- Login Button in Sidebar -->
 <div class="p-4 border-t border-white/30 dark:border-gray-700/30">
     <button id="login-show-btn" class="w-full gradient-btn py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-[0.98]">
         <i data-lucide="log-in" class="w-5 h-5"></i>
-        <span class="font-semibold">Sign In / Register</span>
+        <span class="font-semibold">Google Login</span>
     </button>
 </div>
                 
@@ -997,135 +997,55 @@
             </div>
         </div>
     </div>
-<!-- ==================== MODERN LOGIN / REGISTER MODAL ==================== -->
-<style>
-    /* Additional styles for login modal */
-    .password-strength {
-        height: 4px;
-        border-radius: 2px;
-        transition: width 0.3s, background 0.3s;
-    }
-    .strength-weak { background: #ef4444; width: 33.33%; }
-    .strength-medium { background: #f59e0b; width: 66.66%; }
-    .strength-strong { background: #10b981; width: 100%; }
-    .social-btn {
-        transition: all 0.2s;
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-    .social-btn:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 15px rgba(0,0,0,0.1);
-    }
-</style>
 
-<!-- Login Modal (glassmorphic) -->
-<div id="login-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl animate-fade-in border border-white/30 dark:border-gray-700/30">
-        <!-- Header with tabs -->
-        <div class="flex justify-between items-center mb-6">
-            <div class="flex gap-4">
-                <button id="login-tab" class="text-lg font-bold pb-2 border-b-2 border-primary-500 transition-colors">Login</button>
-                <button id="register-tab" class="text-lg font-bold pb-2 text-gray-500 dark:text-gray-400 hover:text-primary-500 transition-colors">Register</button>
-            </div>
-            <button id="close-login-modal" class="p-2 rounded-full hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-        </div>
 
-        <!-- Login Form -->
-        <div id="login-form" class="space-y-4">
-            <div>
-                <label class="block text-sm font-medium mb-2">Email</label>
-                <input type="email" id="login-email" placeholder="your@email.com" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl border border-white/30 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Password</label>
-                <div class="relative">
-                    <input type="password" id="login-password" placeholder="••••••••" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl border border-white/30 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent pr-10">
-                    <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 show-password" data-target="login-password">
-                        <i data-lucide="eye" class="w-5 h-5"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="flex items-center justify-between">
-                <label class="flex items-center gap-2">
-                    <input type="checkbox" id="remember-me" class="rounded bg-white/30 dark:bg-gray-700/50 border-white/30 dark:border-gray-600/50">
-                    <span class="text-sm">Remember me</span>
-                </label>
-                <button id="forgot-password" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">Forgot password?</button>
-            </div>
-            <button id="login-btn" class="w-full py-3 gradient-btn rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
-                <i data-lucide="log-in" class="w-5 h-5 inline mr-2"></i>Sign In
-            </button>
-        </div>
+<!-- ========== CEO QUOTE & FEATURES (always visible) ========== -->
+<div class="mt-8 mb-12 text-center">
+    <div class="text-2xl md:text-3xl font-bold bg-gradient-to-r from-primary-600 to-purple-600 bg-clip-text text-transparent">
+        “AI will not replace you, but a person using AI will.<br>Become that person.”
+    </div>
+    <div class="text-sm text-gray-500 dark:text-gray-400 mt-2">— Jensen Huang, NVIDIA CEO</div>
+</div>
 
-        <!-- Register Form (hidden) -->
-        <div id="register-form" class="space-y-4 hidden">
-            <div>
-                <label class="block text-sm font-medium mb-2">Full Name</label>
-                <input type="text" id="register-name" placeholder="John Doe" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl border border-white/30 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Email</label>
-                <input type="email" id="register-email" placeholder="your@email.com" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl border border-white/30 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Password</label>
-                <div class="relative">
-                    <input type="password" id="register-password" placeholder="••••••••" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl border border-white/30 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent pr-10">
-                    <button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 show-password" data-target="register-password">
-                        <i data-lucide="eye" class="w-5 h-5"></i>
-                    </button>
-                </div>
-                <div class="mt-2">
-                    <div class="password-strength bg-gray-300 dark:bg-gray-600"></div>
-                    <p class="text-xs mt-1 text-gray-500 dark:text-gray-400" id="password-strength-text">Enter a password</p>
-                </div>
-            </div>
-            <div>
-                <label class="block text-sm font-medium mb-2">Confirm Password</label>
-                <input type="password" id="register-confirm" placeholder="••••••••" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl border border-white/30 dark:border-gray-600/50 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
-            </div>
-            <label class="flex items-start gap-2">
-                <input type="checkbox" id="terms" class="mt-1 rounded bg-white/30 dark:bg-gray-700/50 border-white/30 dark:border-gray-600/50">
-                <span class="text-sm">I agree to the <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">Terms</a> and <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">Privacy</a></span>
-            </label>
-            <button id="register-btn" class="w-full py-3 gradient-btn rounded-xl font-semibold transition-all duration-300 shadow-lg hover:shadow-xl">
-                <i data-lucide="user-plus" class="w-5 h-5 inline mr-2"></i>Create Account
-            </button>
-        </div>
-
-        <!-- Social Login -->
-        <div class="relative my-6">
-            <div class="absolute inset-0 flex items-center"><div class="w-full border-t border-white/30 dark:border-gray-700/30"></div></div>
-            <div class="relative flex justify-center text-sm"><span class="px-2 bg-white/70 dark:bg-gray-800/70 text-gray-500 dark:text-gray-400">Or continue with</span></div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-            <button id="google-login" class="social-btn flex items-center justify-center gap-2 p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/70">
-                <img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5"><span class="text-sm font-medium">Google</span>
-            </button>
-            <button id="github-login" class="social-btn flex items-center justify-center gap-2 p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl hover:bg-white/50 dark:hover:bg-gray-700/70">
-                <i data-lucide="github" class="w-5 h-5"></i><span class="text-sm font-medium">GitHub</span>
-            </button>
-        </div>
-        <div class="mt-4 text-center">
-            <button id="continue-as-guest" class="text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600 dark:hover:text-primary-400">Continue as guest</button>
-        </div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+    <div class="glass-card p-5 rounded-2xl text-center">
+        <div class="text-3xl mb-2">🧠</div>
+        <h3 class="font-bold">Deep Reasoning</h3>
+        <p class="text-sm">Multi‑step logic, complex problem solving</p>
+    </div>
+    <div class="glass-card p-5 rounded-2xl text-center">
+        <div class="text-3xl mb-2">⚡</div>
+        <h3 class="font-bold">Lightning Fast</h3>
+        <p class="text-sm">Near‑instant responses (Gemini Flash)</p>
+    </div>
+    <div class="glass-card p-5 rounded-2xl text-center">
+        <div class="text-3xl mb-2">🎨</div>
+        <h3 class="font-bold">Creative Model</h3>
+        <p class="text-sm">Brainstorm, write, design, explore</p>
+    </div>
+    <div class="glass-card p-5 rounded-2xl text-center">
+        <div class="text-3xl mb-2">📚</div>
+        <h3 class="font-bold">Learning Partner</h3>
+        <p class="text-sm">Tutor, summarize, explain anything</p>
     </div>
 </div>
 
-<!-- Forgot Password Modal -->
-<div id="forgot-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
-    <div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl animate-fade-in border border-white/30 dark:border-gray-700/30">
-        <div class="flex justify-between items-center mb-4">
-            <h3 class="text-xl font-bold">Reset Password</h3>
-            <button id="close-forgot" class="p-2 rounded-full hover:bg-white/30 dark:hover:bg-gray-700/50"><i data-lucide="x" class="w-5 h-5"></i></button>
-        </div>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Enter your email and we'll send you a reset link.</p>
-        <input type="email" id="forgot-email" placeholder="your@email.com" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl mb-4">
-        <button id="send-reset-btn" class="w-full py-3 gradient-btn rounded-xl">Send Reset Link</button>
+<!-- ========== GOOGLE LOGIN POPUP MODAL (starts hidden) ========== -->
+<div id="login-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50 hidden">
+    <div class="bg-white/90 dark:bg-gray-900/90 rounded-2xl p-8 max-w-md w-full mx-4 text-center border border-white/30 shadow-2xl">
+        <button id="close-modal" class="float-right text-2xl">&times;</button>
+        <div class="clear-both"></div>
+        <div class="text-4xl mb-4">🚀</div>
+        <h2 class="text-2xl font-bold mb-2">Welcome to Xroga AI</h2>
+        <p class="text-gray-600 dark:text-gray-300 mb-6">Sign in with Google – one click, no passwords, no temp emails.</p>
+        <button id="google-signin-btn" class="flex items-center justify-center gap-3 w-full bg-white dark:bg-gray-800 text-gray-800 dark:text-white border border-gray-300 rounded-xl py-3 font-semibold hover:shadow-lg transition">
+            <img src="https://www.google.com/favicon.ico" width="20" alt="Google"> Sign in with Google
+        </button>
+        <p class="text-xs text-gray-500 mt-4">Your privacy is protected. Only your name and email are used.</p>
     </div>
 </div>
+
+
    
     <!-- Toast Notification -->
     <div id="toast" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-gray-800/80 dark:bg-gray-900/80 backdrop-blur-xl text-white px-4 py-3 rounded-xl shadow-2xl z-50 hidden transition-all duration-300 opacity-0 translate-y-4 border border-white/10">
@@ -3758,276 +3678,165 @@ function attachCodeBlockEvents(container, messageDiv, originalCode) {
     })();
 </script>
 
-
-<script>
-    
-    (function() {
-        // ---------- DOM Elements ----------
-        const loginModal = document.getElementById('login-modal');
-        const forgotModal = document.getElementById('forgot-modal');
-        const loginShowBtn = document.getElementById('login-show-btn');
-        const closeLoginModal = document.getElementById('close-login-modal');
-        const closeForgot = document.getElementById('close-forgot');
-        const loginTab = document.getElementById('login-tab');
-        const registerTab = document.getElementById('register-tab');
-        const loginForm = document.getElementById('login-form');
-        const registerForm = document.getElementById('register-form');
-        const forgotPasswordBtn = document.getElementById('forgot-password');
-        const continueAsGuest = document.getElementById('continue-as-guest');
-        const showPasswordBtns = document.querySelectorAll('.show-password');
-        const loginBtn = document.getElementById('login-btn');
-        const registerBtn = document.getElementById('register-btn');
-        const googleBtn = document.getElementById('google-login');
-        const githubBtn = document.getElementById('github-login');
-        const sendResetBtn = document.getElementById('send-reset-btn');
-
-        // Password strength elements
-        const registerPassword = document.getElementById('register-password');
-        const strengthBar = document.querySelector('.password-strength');
-        const strengthText = document.getElementById('password-strength-text');
-
-        // ---------- Utility: Show/Hide Modals ----------
-        function showModal(modal) { modal.classList.remove('hidden'); }
-        function hideModal(modal) { modal.classList.add('hidden'); }
-
-        loginShowBtn.addEventListener('click', () => showModal(loginModal));
-        closeLoginModal.addEventListener('click', () => hideModal(loginModal));
-        closeForgot.addEventListener('click', () => hideModal(forgotModal));
-
-        // Close modals when clicking outside
-        window.addEventListener('click', (e) => {
-            if (e.target === loginModal) hideModal(loginModal);
-            if (e.target === forgotModal) hideModal(forgotModal);
-        });
-
-        // ---------- Tab Switching ----------
-        loginTab.addEventListener('click', () => {
-            loginTab.classList.add('border-b-2', 'border-primary-500', 'text-inherit');
-            loginTab.classList.remove('text-gray-500', 'dark:text-gray-400');
-            registerTab.classList.remove('border-b-2', 'border-primary-500');
-            registerTab.classList.add('text-gray-500', 'dark:text-gray-400');
-            loginForm.classList.remove('hidden');
-            registerForm.classList.add('hidden');
-        });
-
-        registerTab.addEventListener('click', () => {
-            registerTab.classList.add('border-b-2', 'border-primary-500', 'text-inherit');
-            registerTab.classList.remove('text-gray-500', 'dark:text-gray-400');
-            loginTab.classList.remove('border-b-2', 'border-primary-500');
-            loginTab.classList.add('text-gray-500', 'dark:text-gray-400');
-            registerForm.classList.remove('hidden');
-            loginForm.classList.add('hidden');
-        });
-
-        // ---------- Show/Hide Password ----------
-        showPasswordBtns.forEach(btn => {
-            btn.addEventListener('click', function() {
-                const targetId = this.dataset.target;
-                const input = document.getElementById(targetId);
-                const type = input.getAttribute('type') === 'password' ? 'text' : 'password';
-                input.setAttribute('type', type);
-                // Toggle icon
-                const icon = this.querySelector('i');
-                icon.setAttribute('data-lucide', type === 'password' ? 'eye' : 'eye-off');
-                lucide.createIcons(); // re-render
-            });
-        });
-
-        // ---------- Password Strength Meter ----------
-        function checkPasswordStrength(password) {
-            let strength = 0;
-            if (password.length >= 8) strength++;
-            if (password.match(/[a-z]/) && password.match(/[A-Z]/)) strength++;
-            if (password.match(/\d/)) strength++;
-            if (password.match(/[^a-zA-Z0-9]/)) strength++;
-            return strength;
+<script type="importmap">
+    {
+        "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+            "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
         }
+    }
+</script>
 
-        registerPassword.addEventListener('input', function() {
-            const password = this.value;
-            const strength = checkPasswordStrength(password);
-            strengthBar.className = 'password-strength';
-            if (password.length === 0) {
-                strengthBar.style.width = '0';
-                strengthText.textContent = 'Enter a password';
-            } else if (strength <= 1) {
-                strengthBar.classList.add('strength-weak');
-                strengthText.textContent = 'Weak password';
-            } else if (strength === 2) {
-                strengthBar.classList.add('strength-medium');
-                strengthText.textContent = 'Medium password';
-            } else {
-                strengthBar.classList.add('strength-strong');
-                strengthText.textContent = 'Strong password';
-            }
-        });
 
-        // ---------- Forgot Password ----------
-        forgotPasswordBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            hideModal(loginModal);
-            showModal(forgotModal);
-        });
+<script type="importmap">
+    {
+        "imports": {
+            "firebase/app": "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js",
+            "firebase/auth": "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
+        }
+    }
+</script>
 
-        sendResetBtn.addEventListener('click', () => {
-            const email = document.getElementById('forgot-email').value;
-            if (!email) {
-                showToast('Please enter your email', 'Error');
-                return;
-            }
-            // TODO: BACKEND – send reset link
-            showToast('Reset link sent! (demo)', 'Success');
-            hideModal(forgotModal);
-        });
+<script type="module">
+    import { initializeApp } from "firebase/app";
+    import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut } from "firebase/auth";
 
-        // ---------- Guest Mode ----------
-        continueAsGuest.addEventListener('click', () => {
-            hideModal(loginModal);
-            // Optionally set a guest flag
-            showToast('Continuing as guest', 'Welcome');
-        });
+    // ========== YOUR REAL FIREBASE CONFIG (from your project) ==========
+    const firebaseConfig = {
+        apiKey: "AIzaSyAgcStVL656Vt932deq7s7UeA1Urum9O-Q",
+        authDomain: "xrogaai.firebaseapp.com",
+        projectId: "xrogaai",
+        storageBucket: "xrogaai.firebasestorage.app",
+        messagingSenderId: "401390812801",
+        appId: "1:401390812801:web:63b04785f1a0aea1349780"
+    };
 
-        // ---------- Login Handler (mock) ----------
-        loginBtn.addEventListener('click', async () => {
-            const email = document.getElementById('login-email').value;
-            const password = document.getElementById('login-password').value;
-            const remember = document.getElementById('remember-me').checked;
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const provider = new GoogleAuthProvider();
 
-            if (!email || !password) {
-                showToast('Email and password required', 'Error');
-                return;
-            }
-
-            // TODO: BACKEND – replace with real authentication
-            // Simulate API call
-            showToast('Logging in...', 'Please wait');
-            setTimeout(() => {
-                // Mock success
-                state.token = 'fake-jwt-token';
-                state.username = email.split('@')[0];
-                localStorage.setItem('token', state.token);
-                localStorage.setItem('username', state.username);
-                if (remember) {
-                    localStorage.setItem('remember', 'true');
-                }
-                updateAuthUI();
-                hideModal(loginModal);
-                showToast('Logged in successfully', 'Welcome');
-            }, 1000);
-        });
-
-        // ---------- Register Handler (mock) ----------
-        registerBtn.addEventListener('click', async () => {
-            const name = document.getElementById('register-name').value;
-            const email = document.getElementById('register-email').value;
-            const password = document.getElementById('register-password').value;
-            const confirm = document.getElementById('register-confirm').value;
-            const terms = document.getElementById('terms').checked;
-
-            if (!name || !email || !password || !confirm) {
-                showToast('All fields required', 'Error');
-                return;
-            }
-            if (password !== confirm) {
-                showToast('Passwords do not match', 'Error');
-                return;
-            }
-            if (!terms) {
-                showToast('You must agree to the terms', 'Error');
-                return;
-            }
-            // Password strength check
-            if (checkPasswordStrength(password) < 2) {
-                showToast('Password too weak', 'Error');
-                return;
-            }
-
-            // TODO: BACKEND – replace with real registration
-            showToast('Creating account...', 'Please wait');
-            setTimeout(() => {
-                // Mock success – auto login
-                state.token = 'fake-jwt-token';
-                state.username = name;
-                localStorage.setItem('token', state.token);
-                localStorage.setItem('username', name);
-                updateAuthUI();
-                hideModal(loginModal);
-                showToast('Account created!', 'Welcome');
-            }, 1000);
-        });
-
-        // ---------- Social Login (mock) ----------
-        googleBtn.addEventListener('click', () => {
-            // TODO: Implement OAuth with Google
-            showToast('Google login – demo only', 'Info');
-        });
-        githubBtn.addEventListener('click', () => {
-            // TODO: Implement OAuth with GitHub
-            showToast('GitHub login – demo only', 'Info');
-        });
-
-        // ---------- Update UI on login/logout ----------
-       function updateAuthUI() {
-    const sidebarUsername = document.getElementById('sidebar-username');
+    // DOM elements
     const sidebarStatus = document.getElementById('sidebar-status');
     const logoutBtn = document.getElementById('logout-btn');
-    if (state.token) {
-        if (sidebarUsername) sidebarUsername.textContent = state.username;
-        if (sidebarStatus) sidebarStatus.textContent = 'Logged in';
-        if (logoutBtn) logoutBtn.classList.remove('hidden');
-    } else {
-        if (sidebarUsername) sidebarUsername.textContent = 'Guest';
-        if (sidebarStatus) sidebarStatus.textContent = 'Not logged in';
-        if (logoutBtn) logoutBtn.classList.add('hidden');
-    }
+    const loginShowBtn = document.getElementById('login-show-btn');
+    const loginModal = document.getElementById('login-modal');
+    const closeModal = document.getElementById('close-modal');
+    const googleSigninBtn = document.getElementById('google-signin-btn');
+    const chatSection = document.getElementById('chat-section');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatInput = document.getElementById('chat-input');
+    const sendBtn = document.getElementById('send-btn');
+    const geminiKeyInput = document.getElementById('gemini-key');
 
-    // ✅ Hide/show the login button based on auth state
-    const loginBtn = document.getElementById('login-show-btn');
-    if (loginBtn) {
-        const container = loginBtn.closest('.p-4.border-t'); // the div wrapping the button
-        if (container) {
-            container.style.display = state.token ? 'none' : 'block';
+    let currentUser = null;
+
+    // Modal functions
+    function showModal() { loginModal.classList.remove('hidden'); }
+    function hideModal() { loginModal.classList.add('hidden'); }
+    loginShowBtn.addEventListener('click', showModal);
+    closeModal.addEventListener('click', hideModal);
+    window.addEventListener('click', (e) => { if (e.target === loginModal) hideModal(); });
+
+    // Google sign-in
+    googleSigninBtn.addEventListener('click', async () => {
+        try {
+            await signInWithPopup(auth, provider);
+            hideModal();
+        } catch (err) {
+            alert("Sign-in failed: " + err.message);
         }
-    }
-}
+    });
 
-
-        // ---------- Extend state ----------
-        // Assume 'state' object exists from your main script – if not, create it.
-        if (typeof state === 'undefined') {
-            window.state = {
-                token: localStorage.getItem('token') || null,
-                username: localStorage.getItem('username') || 'Guest'
-            };
+    // Update UI on auth state
+    onAuthStateChanged(auth, (user) => {
+        currentUser = user;
+        if (user) {
+            sidebarStatus.textContent = `Logged in as ${user.displayName || user.email}`;
+            logoutBtn.classList.remove('hidden');
+            loginShowBtn.closest('.p-4.border-t').style.display = 'none';
+            chatSection.style.display = 'block';
+            if (chatMessages.children.length === 1 && chatMessages.children[0].innerText.includes("Hello")) {
+                chatMessages.innerHTML = `<div class="bg-white/30 dark:bg-gray-800/30 p-3 rounded-2xl rounded-bl-none max-w-[85%]">✨ Welcome back, ${user.displayName?.split(' ')[0] || 'friend'}! Ready for deep reasoning and creativity?</div>`;
+            }
         } else {
-            // Ensure token and username are in state
-            if (!state.hasOwnProperty('token')) state.token = localStorage.getItem('token') || null;
-            if (!state.hasOwnProperty('username')) state.username = localStorage.getItem('username') || 'Guest';
+            sidebarStatus.textContent = 'Not logged in';
+            logoutBtn.classList.add('hidden');
+            loginShowBtn.closest('.p-4.border-t').style.display = 'block';
+            chatSection.style.display = 'none';
+            chatMessages.innerHTML = `<div class="bg-white/30 dark:bg-gray-800/30 p-3 rounded-2xl rounded-bl-none max-w-[85%]">👋 Please sign in with Google to start chatting.</div>`;
         }
+    });
 
-        // Add logout button listener if not already present
-        const logoutBtn = document.getElementById('logout-btn');
-        if (logoutBtn) {
-            logoutBtn.addEventListener('click', () => {
-                state.token = null;
-                state.username = 'Guest';
-                localStorage.removeItem('token');
-                localStorage.removeItem('username');
-                updateAuthUI();
-                showToast('Logged out', 'See you soon');
-            });
+    logoutBtn.addEventListener('click', () => signOut(auth));
+
+    // Gemini AI chat
+    async function callGemini(prompt, apiKey) {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+        const system = "You are Xroga AI, a creative, deep‑thinking partner. Be enthusiastic, insightful, and step‑by‑step.";
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: system + "\n\nUser: " + prompt + "\nXroga AI:" }] }],
+                generationConfig: { temperature: 0.8, maxOutputTokens: 800 }
+            })
+        });
+        if (!response.ok) throw new Error("API error");
+        const data = await response.json();
+        return data.candidates[0].content.parts[0].text;
+    }
+
+    function addMessage(text, isUser) {
+        const div = document.createElement('div');
+        div.className = `p-3 rounded-2xl max-w-[85%] ${isUser ? 'bg-primary-500 text-white self-end rounded-br-none ml-auto' : 'bg-white/30 dark:bg-gray-800/30 self-start rounded-bl-none'}`;
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    async function handleSend() {
+        const msg = chatInput.value.trim();
+        if (!msg) return;
+        if (!currentUser) { showModal(); return; }
+        const apiKey = geminiKeyInput.value.trim();
+        if (!apiKey) { addMessage("🔑 Please enter your Gemini API key above.", false); return; }
+        addMessage(msg, true);
+        chatInput.value = '';
+        sendBtn.disabled = true;
+        const thinking = document.createElement('div');
+        thinking.className = 'bg-white/30 dark:bg-gray-800/30 p-3 rounded-2xl rounded-bl-none self-start max-w-[85%]';
+        thinking.textContent = '⚡ Thinking...';
+        chatMessages.appendChild(thinking);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        try {
+            const reply = await callGemini(msg, apiKey);
+            thinking.remove();
+            addMessage(reply, false);
+        } catch (err) {
+            thinking.remove();
+            addMessage(`❌ Error: ${err.message}`, false);
+        } finally {
+            sendBtn.disabled = false;
+            chatInput.focus();
         }
+    }
 
-        // Initial UI update
-        updateAuthUI();
+    sendBtn.addEventListener('click', handleSend);
+    chatInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') handleSend(); });
 
-        // Helper showToast (if not defined, define a simple one)
-        if (typeof showToast !== 'function') {
-            window.showToast = function(message, title = 'Info') {
-                alert(`${title}: ${message}`); // fallback
-            };
-        }
-    })();
+    // Load saved Gemini key
+    if (localStorage.getItem('geminiKey')) geminiKeyInput.value = localStorage.getItem('geminiKey');
+    geminiKeyInput.addEventListener('change', () => localStorage.setItem('geminiKey', geminiKeyInput.value));
+
+    // Initialize Lucide icons (if lucide is loaded globally)
+    if (typeof lucide !== 'undefined' && lucide.createIcons) {
+        lucide.createIcons();
+    } else {
+        const script = document.createElement('script');
+        script.src = 'https://unpkg.com/lucide@latest';
+        script.onload = () => lucide.createIcons();
+        document.head.appendChild(script);
+    }
 </script>
 <!-- Rename Chat Modal -->
 <div id="rename-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden">
