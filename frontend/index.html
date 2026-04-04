@@ -20,44 +20,57 @@
                         'fade-in': 'fadeIn 0.3s ease-in-out',
                         'slide-up': 'slideUp 0.3s ease-out',
                         'slide-down': 'slideDown 0.3s ease-out',
+                        'slide-left': 'slideLeft 0.3s ease-out',
+                        'slide-right': 'slideRight 0.3s ease-out',
+                        'pulse-slow': 'pulse 3s infinite',
                         'float': 'float 3s ease-in-out infinite',
+                        'bounce-subtle': 'bounceSubtle 2s infinite',
                         'shimmer': 'shimmer 2s infinite',
+                        'typing': 'typing 1.5s steps(20) infinite',
+                        'wave': 'wave 1.5s ease-in-out infinite',
                         'gradient': 'gradient 3s ease infinite',
+                        'spin-slow': 'spin 3s linear infinite',
                         'glow-pulse': 'glowPulse 3s ease-in-out infinite'
                     },
                     keyframes: {
                         fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
                         slideUp: { '0%': { transform: 'translateY(20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
                         slideDown: { '0%': { transform: 'translateY(-20px)', opacity: '0' }, '100%': { transform: 'translateY(0)', opacity: '1' } },
-                        float: { '0%, 100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        slideLeft: { '0%': { transform: 'translateX(20px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
+                        slideRight: { '0%': { transform: 'translateX(-20px)', opacity: '0' }, '100%': { transform: 'translateX(0)', opacity: '1' } },
+                        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-10px)' } },
+                        bounceSubtle: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-5px)' } },
                         shimmer: { '0%': { backgroundPosition: '-1000px 0' }, '100%': { backgroundPosition: '1000px 0' } },
-                        gradient: { '0%, 100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
-                        glowPulse: { '0%, 100%': { opacity: 0.6, filter: 'blur(30px)' }, '50%': { opacity: 1, filter: 'blur(40px)' } }
+                        typing: { '0%': { width: '0' }, '100%': { width: '100%' } },
+                        wave: { '0%,100%': { transform: 'scaleY(1)' }, '50%': { transform: 'scaleY(1.5)' } },
+                        gradient: { '0%,100%': { backgroundPosition: '0% 50%' }, '50%': { backgroundPosition: '100% 50%' } },
+                        glowPulse: { '0%,100%': { opacity: 0.6, filter: 'blur(30px)' }, '50%': { opacity: 1, filter: 'blur(40px)' } }
                     }
                 }
             }
         }
     </script>
     
-    <!-- External Libraries -->
+    <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    
+    <!-- Additional libraries -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.0.6/purify.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     
-    <!-- Custom Styles -->
+    <!-- Custom CSS (separate file) -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body class="bg-gradient-to-br from-indigo-100 via-purple-100 to-pink-100 dark:from-gray-900 dark:via-gray-800 dark:to-gray-950 text-gray-900 dark:text-gray-100 antialiased">
     <!-- Main Container -->
     <div class="flex h-screen overflow-hidden glass-panel m-4 rounded-3xl shadow-2xl border border-white/20 dark:border-gray-700/30">
-        
         <!-- Sidebar Overlay -->
         <div id="sidebar-overlay" class="fixed inset-0 bg-black/50 z-40 lg:hidden hidden"></div>
         
-        <!-- Sidebar -->
+        <!-- Sidebar (full structure) -->
         <aside id="sidebar" class="w-72 bg-white/30 dark:bg-gray-800/50 backdrop-blur-xl border-r border-white/30 dark:border-gray-700/30 flex flex-col h-full fixed lg:absolute lg:left-0 lg:top-0 lg:h-full z-50 transform -translate-x-full transition-transform duration-300 ease-in-out">
             <div class="p-4 md:p-6 border-b border-white/30 dark:border-gray-700/30">
                 <div class="flex items-center gap-8 mb-9">
@@ -66,17 +79,14 @@
                     </div>
                 </div>
                 <button id="new-chat" class="w-full gradient-btn py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-[0.98]">
-                    <i data-lucide="plus" class="w-5 h-5"></i>
-                    <span class="font-semibold">New Chat</span>
+                    <i data-lucide="plus" class="w-5 h-5"></i><span class="font-semibold">New Chat</span>
                 </button>
             </div>
-            
             <div class="flex-1 overflow-y-auto p-4">
                 <div class="relative mb-6">
                     <i data-lucide="search" class="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400"></i>
                     <input type="text" id="search-chats" placeholder="Search chats..." class="search-input w-full pl-10 pr-4 py-2.5 bg-white/30 dark:bg-gray-700/50 border border-white/30 dark:border-gray-600/50 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent text-sm backdrop-blur-sm">
                 </div>
-                
                 <div id="code-chats-section" class="mb-6">
                     <button id="toggle-code-chats" class="w-full flex items-center justify-between p-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
                         <span><i data-lucide="code-2" class="w-4 h-4 inline mr-2"></i>Code Chats</span>
@@ -84,7 +94,6 @@
                     </button>
                     <div id="code-chats-list" class="space-y-1 mt-2"></div>
                 </div>
-                
                 <div id="general-chats-section">
                     <button id="toggle-general-chats" class="w-full flex items-center justify-between p-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200">
                         <span><i data-lucide="message-square" class="w-4 h-4 inline mr-2"></i>General Chats</span>
@@ -93,7 +102,6 @@
                     <div id="general-chats-list" class="space-y-1 mt-2"></div>
                 </div>
             </div>
-            
             <div class="p-4 border-t border-white/30 dark:border-gray-700/30 space-y-2">
                 <button id="toggle-tasks-btn" class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-200">
                     <div class="flex items-center gap-3"><div class="p-2 bg-white/30 dark:bg-gray-700/50 rounded-lg"><i data-lucide="list-todo" class="w-4 h-4"></i></div><span class="font-medium">Tasks</span></div>
@@ -103,23 +111,19 @@
                     <div class="flex gap-2"><input type="text" id="task-input" placeholder="New task..." class="flex-1 p-2 bg-white/30 dark:bg-gray-700/50 rounded-xl text-sm"><button id="add-task-btn" class="p-2 bg-primary-500/30 rounded-xl"><i data-lucide="plus" class="w-4 h-4"></i></button></div>
                     <div id="tasks-list" class="space-y-1 max-h-40 overflow-y-auto"></div>
                 </div>
-                
                 <button id="theme-toggle" class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-200 active:scale-[0.98]">
                     <div class="flex items-center gap-3"><div class="p-2 bg-white/30 dark:bg-gray-700/50 rounded-lg"><i data-lucide="sun" class="w-4 h-4 block dark:hidden"></i><i data-lucide="moon" class="w-4 h-4 hidden dark:block"></i></div><span class="font-medium">Theme</span></div>
                     <span class="text-xs px-2 py-1 bg-white/30 dark:bg-gray-700/50 rounded-md"><span class="dark:hidden">Light</span><span class="hidden dark:inline">Dark</span></span>
                 </button>
-                
                 <div id="user-info" class="flex items-center justify-between p-3 rounded-xl bg-gradient-to-r from-primary-500/20 to-purple-500/20 dark:from-primary-900/30 dark:to-purple-900/30 backdrop-blur-sm mb-2">
                     <div class="flex items-center gap-3"><div class="p-2 bg-primary-500/30 dark:bg-primary-900/30 rounded-lg"><i data-lucide="user" class="w-4 h-4 text-primary-600 dark:text-primary-400"></i></div><div><p class="font-semibold text-sm" id="sidebar-username">Guest</p><p class="text-xs text-gray-600 dark:text-gray-400" id="sidebar-status">Not logged in</p></div></div>
                     <button id="logout-btn" class="text-xs px-2 py-1 bg-white/30 dark:bg-gray-700/50 rounded-md hidden">Logout</button>
                 </div>
-                
                 <div class="p-4 border-t border-white/30 dark:border-gray-700/30">
                     <button id="login-show-btn" class="w-full gradient-btn py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-all duration-300 shadow-lg hover:shadow-xl active:scale-[0.98]">
                         <i data-lucide="log-in" class="w-5 h-5"></i><span class="font-semibold">Sign In / Register</span>
                     </button>
                 </div>
-                
                 <button id="settings-btn" class="w-full flex items-center justify-between p-3 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-all duration-200 active:scale-[0.98]">
                     <div class="flex items-center gap-3"><div class="p-2 bg-white/30 dark:bg-gray-700/50 rounded-lg"><i data-lucide="settings" class="w-4 h-4"></i></div><span class="font-medium">Settings</span></div>
                     <i data-lucide="chevron-right" class="w-4 h-4 text-gray-400"></i>
@@ -136,15 +140,19 @@
                     <button id="mobile-theme-toggle" class="p-2 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors"><i data-lucide="sun" class="w-5 h-5 block dark:hidden"></i><i data-lucide="moon" class="w-5 h-5 hidden dark:block"></i></button>
                 </div>
             </header>
-            
             <div id="desktop-toggle-container" class="hidden lg:block absolute top-10 left-30 z-[100]">
                 <button id="desktop-sidebar-toggle" class="p-2 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors" title="Toggle sidebar"><i data-lucide="panel-left-close" class="w-5 h-5"></i></button>
             </div>
-            
             <header id="main-header" class="p-4 md:p-6 border-b border-white/30 dark:border-gray-700/30 bg-white/30 dark:bg-gray-800/50 backdrop-blur-lg transition-all duration-300">
                 <div class="flex items-center justify-between mb-4">
-                    <div class="flex items-center gap-2"><div class="flex-1 min-w-0"><h1 class="text-2xl md:text-3xl font-bold gradient-text">Welcome back, <span id="username" class="gradient-text">Alex</span></h1><p class="text-gray-700 dark:text-gray-300 mt-1">Your AI Partner is ready to help - build & deploy</p></div></div>
-                    <div class="flex items-center gap-2 mobile-hidden"><button id="clear-chat" class="p-2.5 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors" title="Clear chat"><i data-lucide="trash-2" class="w-5 h-5"></i></button><button id="export-chat" class="p-2.5 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors" title="Export chat"><i data-lucide="download" class="w-5 h-5"></i></button></div>
+                    <div class="flex-1 min-w-0">
+                        <h1 class="text-2xl md:text-3xl font-bold gradient-text">Welcome back, <span id="username" class="gradient-text">Alex</span></h1>
+                        <p class="text-gray-700 dark:text-gray-300 mt-1">Your AI Partner is ready to help - build & deploy</p>
+                    </div>
+                    <div class="flex items-center gap-2 mobile-hidden">
+                        <button id="clear-chat" class="p-2.5 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors" title="Clear chat"><i data-lucide="trash-2" class="w-5 h-5"></i></button>
+                        <button id="export-chat" class="p-2.5 rounded-xl hover:bg-white/30 dark:hover:bg-gray-700/50 transition-colors" title="Export chat"><i data-lucide="download" class="w-5 h-5"></i></button>
+                    </div>
                 </div>
                 <div class="flex flex-wrap gap-2">
                     <button class="quick-action px-4 py-2.5 bg-primary-500/20 dark:bg-primary-900/30 text-primary-700 dark:text-primary-300 rounded-xl hover:bg-primary-500/30 transition-all flex items-center gap-2 backdrop-blur-sm"><i data-lucide="sparkles" class="w-4 h-4"></i><span>Generate content</span></button>
@@ -156,11 +164,9 @@
                     <button class="quick-action px-4 py-2.5 bg-pink-500/20 dark:bg-pink-900/30 text-pink-700 dark:text-pink-300 rounded-xl hover:bg-pink-500/30 transition-all flex items-center gap-2 backdrop-blur-sm" data-feature="trip"><i data-lucide="plane" class="w-4 h-4"></i><span>Trip Plan</span></button>
                 </div>
             </header>
-            
             <div id="topics-toggle-container" class="hidden px-4 md:px-6 py-3 border-b border-white/30 dark:border-gray-700/30 bg-gradient-to-r from-primary/10 to-purple-500/10">
                 <button id="toggle-topics-btn" class="flex items-center gap-2 text-sm text-primary-600 dark:text-primary-400 hover:text-primary-700 transition-colors"><i data-lucide="chevron-down" class="w-4 h-4 transition-transform" id="topics-chevron"></i><span>Show Topics</span></button>
             </div>
-            
             <div id="topics-section" class="hidden p-4 md:p-6 border-b border-white/30 dark:border-gray-700/30 bg-gradient-to-r from-primary/10 to-purple-500/10">
                 <div class="mb-4"><h3 class="text-lg font-bold flex items-center gap-2"><i data-lucide="compass" class="w-5 h-5 text-primary-600 dark:text-primary-400"></i>Explore Topics</h3><p class="text-gray-700 dark:text-gray-300 text-sm mt-1">Select a topic to start a focused conversation</p></div>
                 <div class="flex flex-wrap gap-2">
@@ -175,17 +181,13 @@
                     <button class="topic-chip text-sm px-4 py-2 bg-white/40 dark:bg-gray-800/40 border border-pink-500/30 text-pink-600 rounded-full hover:bg-pink-500/20 transition-all" data-topic="trip">Trip Plan</button>
                 </div>
             </div>
-            
             <div id="chat-container" class="flex-1 overflow-y-auto relative">
                 <div id="file-upload-preview" class="hidden mx-4 md:mx-6 mt-4"></div>
-                <div id="chat-messages" class="p-4 md:p-6 space-y-6 pb-32 lg:pt-16">
-                    <!-- Welcome content rendered by JS -->
-                </div>
+                <div id="chat-messages" class="p-4 md:p-6 space-y-6 pb-32 lg:pt-16"></div>
                 <div id="typing-indicator" class="hidden absolute bottom-32 left-4 md:left-6">
                     <div class="flex items-center gap-4"><div class="w-10 h-10 rounded-full overflow-hidden shadow-lg"><img src="https://i.postimg.cc/Jn1KffzY/Untitled-design-63-removebg-preview.png" alt="Xroga AI" class="w-full h-full object-cover"></div><div class="typing-indicator glass"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>
                 </div>
             </div>
-            
             <div class="border-t border-white/30 dark:border-gray-700/30 bg-white/30 dark:bg-gray-800/50 backdrop-blur-lg p-4">
                 <div class="max-w-4xl mx-auto">
                     <div class="glass rounded-2xl p-2 shadow-2xl">
@@ -204,7 +206,7 @@
         </main>
     </div>
     
-    <!-- Modals (simplified - full content in script.js will populate) -->
+    <!-- Modals (Settings, Login, Forgot, Rename, Toast) -->
     <div id="settings-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden"><div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl animate-fade-in border border-white/30 dark:border-gray-700/30"><div class="flex justify-between items-center mb-6"><h3 class="text-xl font-bold">Settings</h3><button id="close-settings" class="p-2 rounded-full hover:bg-white/30 dark:hover:bg-gray-700/50"><i data-lucide="x" class="w-5 h-5"></i></button></div><div class="space-y-6"><div><h4 class="font-semibold mb-4 flex items-center gap-2"><i data-lucide="user" class="w-4 h-4"></i>Profile Settings</h4><input type="text" id="profile-name" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl" value="Alex"></div><div><h4 class="font-semibold mb-4 flex items-center gap-2"><i data-lucide="mic" class="w-4 h-4"></i>Voice Output</h4><label class="flex items-center gap-2"><input type="checkbox" id="auto-speak" checked> Auto‑speak responses</label></div><button id="save-settings" class="w-full py-3 gradient-btn rounded-xl">Save Changes</button></div></div></div>
     
     <div id="login-modal" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50 hidden"><div class="bg-white/70 dark:bg-gray-800/70 backdrop-blur-xl rounded-2xl p-6 max-w-md w-full mx-4 shadow-2xl animate-fade-in border border-white/30 dark:border-gray-700/30"><div class="flex justify-between items-center mb-6"><div class="flex gap-4"><button id="login-tab" class="text-lg font-bold pb-2 border-b-2 border-primary-500">Login</button><button id="register-tab" class="text-lg font-bold pb-2 text-gray-500 dark:text-gray-400 hover:text-primary-500">Register</button></div><button id="close-login-modal" class="p-2 rounded-full hover:bg-white/30 dark:hover:bg-gray-700/50"><i data-lucide="x" class="w-5 h-5"></i></button></div><div id="login-form" class="space-y-4"><div><label class="block text-sm font-medium mb-2">Email</label><input type="email" id="login-email" placeholder="your@email.com" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl"></div><div><label class="block text-sm font-medium mb-2">Password</label><div class="relative"><input type="password" id="login-password" placeholder="••••••••" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl pr-10"><button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 show-password" data-target="login-password"><i data-lucide="eye" class="w-5 h-5"></i></button></div></div><div class="flex items-center justify-between"><label class="flex items-center gap-2"><input type="checkbox" id="remember-me" class="rounded"><span class="text-sm">Remember me</span></label><button id="forgot-password" class="text-sm text-primary-600 dark:text-primary-400 hover:underline">Forgot password?</button></div><button id="login-btn" class="w-full py-3 gradient-btn rounded-xl font-semibold"><i data-lucide="log-in" class="w-5 h-5 inline mr-2"></i>Sign In</button></div><div id="register-form" class="space-y-4 hidden"><div><label class="block text-sm font-medium mb-2">Full Name</label><input type="text" id="register-name" placeholder="John Doe" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl"></div><div><label class="block text-sm font-medium mb-2">Email</label><input type="email" id="register-email" placeholder="your@email.com" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl"></div><div><label class="block text-sm font-medium mb-2">Password</label><div class="relative"><input type="password" id="register-password" placeholder="••••••••" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl pr-10"><button type="button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-gray-400 show-password" data-target="register-password"><i data-lucide="eye" class="w-5 h-5"></i></button></div><div class="mt-2"><div class="password-strength bg-gray-300 dark:bg-gray-600"></div><p class="text-xs mt-1 text-gray-500 dark:text-gray-400" id="password-strength-text">Enter a password</p></div></div><div><label class="block text-sm font-medium mb-2">Confirm Password</label><input type="password" id="register-confirm" placeholder="••••••••" class="w-full p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl"></div><label class="flex items-start gap-2"><input type="checkbox" id="terms" class="mt-1 rounded"><span class="text-sm">I agree to the <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">Terms</a> and <a href="#" class="text-primary-600 dark:text-primary-400 hover:underline">Privacy</a></span></label><button id="register-btn" class="w-full py-3 gradient-btn rounded-xl font-semibold"><i data-lucide="user-plus" class="w-5 h-5 inline mr-2"></i>Create Account</button></div><div class="relative my-6"><div class="absolute inset-0 flex items-center"><div class="w-full border-t border-white/30 dark:border-gray-700/30"></div></div><div class="relative flex justify-center text-sm"><span class="px-2 bg-white/70 dark:bg-gray-800/70 text-gray-500 dark:text-gray-400">Or continue with</span></div></div><div class="grid grid-cols-2 gap-3"><button id="google-login" class="social-btn flex items-center justify-center gap-2 p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl hover:bg-white/50"><img src="https://www.google.com/favicon.ico" alt="Google" class="w-5 h-5"><span class="text-sm font-medium">Google</span></button><button id="github-login" class="social-btn flex items-center justify-center gap-2 p-3 bg-white/30 dark:bg-gray-700/50 rounded-xl hover:bg-white/50"><i data-lucide="github" class="w-5 h-5"></i><span class="text-sm font-medium">GitHub</span></button></div><div class="mt-4 text-center"><button id="continue-as-guest" class="text-sm text-gray-600 dark:text-gray-400 hover:text-primary-600">Continue as guest</button></div></div></div>
@@ -217,12 +219,33 @@
     
     <input type="file" id="file-input" class="hidden" multiple>
     
-    <!-- Model Selector Component -->
+    <!-- Model Selector (draggable) -->
     <div class="selector-placement draggable-wrapper">
-        <section class="code"><style>.code{display:inline-flex;flex-direction:column;align-items:center;background:transparent;position:relative}.selector-btn{display:flex;align-items:center;gap:.5rem;background:rgba(20,30,45,.6);backdrop-filter:blur(16px) saturate(200%);border:1px solid rgba(255,255,255,.1);border-radius:2.5rem;padding:.5rem 1rem .5rem .7rem;box-shadow:0 10px 25px -8px rgba(0,0,0,.6),inset 0 1px 2px rgba(255,255,255,.05);cursor:default;color:#fff;width:fit-content}.drag-handle{cursor:grab;font-size:1rem;color:rgba(255,255,240,.6);padding:.2rem .1rem;display:flex;align-items:center;user-select:none}.drag-handle:active{cursor:grabbing}.drag-handle:hover{color:rgba(255,255,255,.9)}.minimize-toggle{background:rgba(255,255,255,.1);border:none;border-radius:2rem;width:26px;height:26px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:rgba(255,255,240,.8);font-size:.85rem;margin-left:.2rem}.minimize-toggle:hover{background:rgba(255,255,255,.25);color:#fff}.btn-name,.btn-chevron{transition:opacity .2s ease}.selector-btn.minimized{padding:.5rem .8rem}.selector-btn.minimized .btn-name,.selector-btn.minimized .btn-chevron{display:none}.btn-icon{font-size:1.5rem;filter:drop-shadow(0 2px 4px rgba(0,0,0,.5))}.minimized .btn-icon{font-size:1.6rem}.btn-name{font-weight:500;font-size:.95rem;white-space:nowrap;background:linear-gradient(135deg,#fff,#e0e8ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}.btn-chevron{color:rgba(255,255,255,.6);font-size:.8rem;transition:transform .2s;margin-left:.2rem}.selector-btn.active .btn-chevron{transform:rotate(180deg)}.model-dropdown{position:absolute;top:calc(100% + .5rem);left:0;min-width:240px;background:rgba(15,25,40,.75);backdrop-filter:blur(24px) saturate(200%);border:1px solid rgba(255,255,255,.1);border-radius:1.8rem;padding:.4rem;box-shadow:0 20px 40px -12px black;display:none;z-index:100;flex-direction:column;gap:.2rem}.model-dropdown.show{display:flex}.model-option{display:flex;align-items:center;gap:.6rem;padding:.5rem .9rem;border-radius:1.5rem;cursor:pointer;border:1px solid transparent;color:rgba(255,255,255,.9);font-size:.9rem}.model-option:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.1)}.model-option.selected{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2)}.option-icon{font-size:1.6rem;width:2.2rem;text-align:center}.option-emoji{font-size:1.5rem;line-height:1}.option-name{flex:1;font-weight:500}.limit-chip{background:rgba(0,30,60,.7);backdrop-filter:blur(4px);border-radius:2rem;padding:.2rem .7rem;font-size:.65rem;font-weight:500;display:flex;align-items:center;gap:.2rem;color:#aac8ff;border:1px solid rgba(255,255,255,.1);white-space:nowrap}.limit-chip i{font-size:.6rem;color:#5f8aff}.placeholder-chip{width:62px;height:1.5rem;visibility:hidden}.code-expert .option-icon{color:#3b82f6}.lightening .option-icon{color:#fbbf24}.deep-thought .option-icon{color:#34d399}.selector-placement.draggable-wrapper{position:fixed;top:20%;left:50%;transform:translate(-50%,-50%);z-index:10000;margin:0;cursor:default;will-change:top,left}.selector-placement.draggable-wrapper.dragging-active{transition:none;transform:none !important}.selector-placement.draggable-wrapper{transition:none}</style>
-        <div style="position:relative"><div class="selector-btn" id="selectorBtn"><div class="drag-handle" id="dragHandle"><i class="fas fa-grip-vertical"></i></div><i class="fas fa-terminal btn-icon" id="btnIcon" style="color:#3b82f6"></i><span class="btn-name" id="btnName">Code Expert</span><i class="fas fa-chevron-down btn-chevron"></i><div class="minimize-toggle" id="minimizeToggle" title="Minimize to icon / Restore"><i class="fas fa-star-of-life"></i></div></div><div class="model-dropdown" id="modelDropdown"><div class="model-option code-expert selected" data-model="code-expert" data-icon="fa-terminal" data-name="Code Expert"><i class="fas fa-terminal option-icon"></i><span class="option-emoji">🦊</span><span class="option-name">Code Expert</span><div class="limit-chip"><i class="fa-regular fa-message"></i> 30/day</div></div><div class="model-option lightening" data-model="lightening" data-icon="fa-rocket" data-name="Lightening"><i class="fas fa-rocket option-icon"></i><span class="option-emoji">🐎</span><span class="option-name">Lightening & Creative</span><div class="placeholder-chip"></div></div><div class="model-option deep-thought" data-model="deep-thought" data-icon="fa-book" data-name="Deep Thought"><i class="fas fa-book option-icon"></i><span class="option-emoji">🐋</span><span class="option-name">Deep Thought</span><div class="placeholder-chip"></div></div></div></div></section>
+        <section class="code">
+            <div style="position: relative;">
+                <div class="selector-btn" id="selectorBtn">
+                    <div class="drag-handle" id="dragHandle"><i class="fas fa-grip-vertical"></i></div>
+                    <i class="fas fa-terminal btn-icon" id="btnIcon" style="color: #3b82f6;"></i>
+                    <span class="btn-name" id="btnName">Code Expert</span>
+                    <i class="fas fa-chevron-down btn-chevron"></i>
+                    <div class="minimize-toggle" id="minimizeToggle" title="Minimize to icon / Restore"><i class="fas fa-star-of-life"></i></div>
+                </div>
+                <div class="model-dropdown" id="modelDropdown">
+                    <div class="model-option code-expert selected" data-model="code-expert" data-icon="fa-terminal" data-name="Code Expert">
+                        <i class="fas fa-terminal option-icon"></i><span class="option-emoji">🦊</span><span class="option-name">Code Expert</span><div class="limit-chip"><i class="fa-regular fa-message"></i> 30/day</div>
+                    </div>
+                    <div class="model-option lightening" data-model="lightening" data-icon="fa-rocket" data-name="Lightening">
+                        <i class="fas fa-rocket option-icon"></i><span class="option-emoji">🐎</span><span class="option-name">Lightening & Creative</span><div class="placeholder-chip"></div>
+                    </div>
+                    <div class="model-option deep-thought" data-model="deep-thought" data-icon="fa-book" data-name="Deep Thought">
+                        <i class="fas fa-book option-icon"></i><span class="option-emoji">🐋</span><span class="option-name">Deep Thought</span><div class="placeholder-chip"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
-    
+
+    <!-- Custom JavaScript (separate file) -->
     <script src="script.js"></script>
 </body>
 </html>
