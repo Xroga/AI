@@ -1484,27 +1484,67 @@
         showToast('New chat started', 'Ready');
     }
         // ===================== AI API CALL =====================
-        async function callAI(prompt, mode, files = []) {
-            try {
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt, mode, files })
-                });
-                if (!response.ok) throw new Error('API error');
-                const data = await response.json();
-                return data.response;
-            } catch (error) {
-                console.error('AI fallback:', error);
-                if (mode === 'code-expert') {
-                    return `// Generated code for: ${prompt}\nfunction solution() {\n  console.log("Implement your logic here");\n  return "Xroga AI output";\n}`;
-                } else if (mode === 'lightening') {
-                    return `✨ **Lightning+Creative Mode** ✨\n\nFast creative response for "${prompt}":\nImagine innovative solutions tailored just for you.`;
-                } else {
-                    return `🧠 **Deep Thought (Coming Soon)** 🧠\n\nOur deep reasoning model is under development. Stay tuned!`;
+       // ===================== NEW callAI using Gemini API directly =====================
+async function callAI(prompt, mode, files = []) {
+    // Get the user's Gemini API key from localStorage (set by the bottom script)
+    const apiKey = localStorage.getItem('geminiKey');
+    if (!apiKey) {
+        return "⚠️ **No Gemini API key found.**\n\nPlease enter your Gemini API key in the settings (the key input at the top) and try again.\n\nGet a free key from [Google AI Studio](https://aistudio.google.com/apikey).";
+    }
+
+    // Choose model – you can change this to any free Gemini model
+    const model = "gemini-1.5-flash"; // or "gemini-2.0-flash-exp" for newer
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+
+    // System prompt based on current mode
+    let systemPrompt = "";
+    if (mode === 'code-expert') {
+        systemPrompt = "You are Xroga AI Code Expert. Provide clean, working code with brief explanations. Format code blocks with proper language tags. Be concise but helpful.";
+    } else if (mode === 'lightening') {
+        systemPrompt = "You are Xroga AI Lightning+Creative mode. Give fast, imaginative, and engaging responses. Be enthusiastic and use emojis occasionally.";
+    } else if (mode === 'deep-thought') {
+        systemPrompt = "You are Xroga AI Deep Thought mode. Provide thoughtful, analytical, and detailed answers. Break down complex topics step by step.";
+    } else {
+        systemPrompt = "You are Xroga AI, a helpful assistant. Answer clearly and accurately.";
+    }
+
+    // If there are uploaded files, you can handle them here (simplified: just mention them)
+    let fileContext = "";
+    if (files && files.length > 0) {
+        fileContext = `\n\nThe user has attached ${files.length} file(s). They may ask you to analyze them. For now, just acknowledge you received files.\n`;
+    }
+
+    const fullPrompt = systemPrompt + fileContext + "\n\nUser: " + prompt + "\n\nXroga AI:";
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                contents: [{ parts: [{ text: fullPrompt }] }],
+                generationConfig: {
+                    temperature: 0.7,
+                    maxOutputTokens: 2048,
+                    topP: 0.95
                 }
-            }
+            })
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            console.error("Gemini API error:", errorData);
+            return `❌ **API Error (${response.status})**\n\n${errorData.error?.message || "Please check your API key or try again later."}`;
         }
+
+        const data = await response.json();
+        const reply = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!reply) throw new Error("No response from Gemini");
+        return reply;
+    } catch (error) {
+        console.error("callAI failed:", error);
+        return `❌ **Network or parsing error**\n\n${error.message}\n\nCheck your internet connection and API key.`;
+    }
+}
 
         // ===================== MODERN CODE BLOCK (only top toolbar, no bottom buttons) =====================
         function addCodeResponse(codeContent, saveToHistory = true) {
